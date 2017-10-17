@@ -71,6 +71,7 @@ function plusReady() {
 
 }
 document.addEventListener("plusready", plusReady, false);
+
 // 分享应用
 var shares = {},
 	shareBts = [];
