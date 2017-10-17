@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<title>扫码盘点</title>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+			var img = null;
+			var blist = [];
+
+			function scaned(r, f) {
+				var d = new Date();
+				var li = null,
+					hl = document.getElementById('history');
+				if(blist.length > 0) {
+					li = document.createElement('li');
+					li.className = 'ditem';
+					hl.insertBefore(li, hl.childNodes[0]);
+				} else {
+					li = document.getElementById('nohistory');
+				}
+				li.id = blist.length;
+				var dateStr = dateToStr(d);
+				var html = '[' + dateStr + ']' + '　　' + '二维码<div class="hdata">';
+				html += r;
+				html += '</div>';
+				li.innerHTML = html;
+				li.setAttribute('onclick', 'selected(id)');
+				blist[blist.length] = {
+					result: r,
+					file: f
+				};
+				update(r, f);
+			}
+
+			function selected(id) {
+				var h = blist[id];
+				update(h.result, h.file);
+				plus.nativeUI.alert(h.result);
+			}
+
+			function update(r, f) {
+				outSet('扫码计数：111');
+				outLine('扫描成功：' + r);
+				outLine('图片地址：' + f);
+				if(!f || f == 'null') {
+					img.src = 'img/barcode.png';
+				} else {
+					plus.io.resolveLocalFileSystemURL(f, function(entry) {
+						img.src = entry.toLocalURL();
+					});
+				}
+			}
+
+			function onempty() {
+				if(window.plus) {
+					plus.nativeUI.alert('无扫描记录');
+				} else {
+					alert('无扫描记录');
+				}
+			}
+
+			function cleanHistroy() {
+				plus.nativeUI.confirm('是否真的要清空盘点历史数据？', function(e) {
+					if(e.index == 0) {
+						plus.nativeUI.confirm('真删了啊！你可别后悔啊？', function(e1) {
+							if(e1.index == 0) {
+								if(blist.length > 0) {
+									var hl = document.getElementById('history');
+									hl.innerHTML = '<li id="nohistory" class="ditem" onclick="onempty();">无历史记录	</li>';
+								}
+								plus.io.resolveLocalFileSystemURL('_doc/barcode/', function(entry) {
+									entry.removeRecursively(function() {
+										img.src = 'img/barcode.png';
+									}, function(e) {
+										alert("failed" + e.message);
+									});
+								});
+							}
+						});
+					}
+				});
+			}
+		</script>
+		<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+		<style type="text/css" media="screen">
+			.hdata {
+				color: #e1673e;
+				font-size: 14px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		</style>
+	</head>
+
+	<body onload="img=document.getElementById('bimg')">
+		<header id="header">
+			<div class="nvbt"></div>
+			<div class="nvtt">扫码盘点</div>
+			<div class="nvbt ishare" onclick="share()"></div>
+		</header>
+		<div id="dcontent" class="dcontent">
+			<br/>
+			<img style="width:40%" id="bimg" src="img/barcode.png" />
+			<br/>
+			<div class="button" onclick="clicked('barcode_scan.html',true,true)">扫一扫</div>
+			<br/>
+			<ul id="history" class="dlist" style="text-align:left;">
+				<li id="nohistory" class="ditem" onclick="onempty()">无历史记录 </li>
+			</ul>
+			<br/>
+			<div class="button button-waring" onclick="cleanHistroy()">清空历史记录</div>
+		</div>
+		<div id="output">
+			盘点完成，导出盘点文件，通过浏览器上传至设备管理系统完成盘点。
+		</div>
+	</body>
+	<script type="text/javascript" src="js/immersed.js"></script>
+	<script type="text/javascript">
+		
+	</script>
+
+</html>
