@@ -74,7 +74,7 @@
 									var hl = document.getElementById('history');
 									hl.innerHTML = '<li id="nohistory" class="ditem" onclick="onempty();">无历史记录	</li>';
 								}
-								plus.io.resolveLocalFileSystemURL('_doc/barcode/', function(entry) {
+								plus.io.resolveLocalFileSystemURL('_doc/', function(entry) {
 									entry.removeRecursively(function() {
 										img.src = 'img/barcode.png';
 									}, function(e) {
@@ -103,7 +103,7 @@
 		<header id="header">
 			<div class="nvbt"></div>
 			<div class="nvtt">扫码盘点</div>
-			<div class="nvbt ishare" onclick="share()"></div>
+			<div class="nvbt ishare" onclick="fileSystem()"></div>
 		</header>
 		<div id="dcontent" class="dcontent">
 			<br/>
