@@ -72,13 +72,11 @@
 					if(e.index == 0) {
 						plus.nativeUI.confirm('真删了啊！你可别后悔啊？', function(e1) {
 							if(e1.index == 0) {
-								if(blist.length > 0) {
-									clearQrNum();
-									blist = [];
-									var hl = document.getElementById('history');
-									hl.innerHTML = '<li id="nohistory" class="ditem" onclick="onempty();">无历史记录	</li>';
-									outSet('盘点完成，导出盘点文件，通过浏览器上传至设备管理系统完成盘点。');
-								}
+								clearQrNum();
+								blist = [];
+								var hl = document.getElementById('history');
+								hl.innerHTML = '<li id="nohistory" class="ditem" onclick="onempty();">无历史记录	</li>';
+								outSet('盘点完成，导出盘点文件，通过浏览器上传至设备管理系统完成盘点。');
 								plus.io.resolveLocalFileSystemURL('_doc/', function(entry) {
 									entry.removeRecursively(function() {
 										img.src = 'img/barcode.png';
