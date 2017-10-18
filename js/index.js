@@ -1,5 +1,17 @@
+var writerForQr = null;
+var qrCount = null;
 // H5 plus事件处理
 function plusReady() {
+	// 获取扫描标签数量
+	qrCount = plus.storage.getItem("qrCount");
+	if(!qrCount) {
+		qrCount = 0;
+	} else {
+		if(qrCount != 0) {
+			li = document.getElementById('nohistory');
+			li.innerHTML = "已盘点个数：" + qrCount;
+		}
+	}
 	// 读写文件
 	plus.io.requestFileSystem(plus.io.PRIVATE_DOC, function(fs) {
 		// fs.root是根目录操作对象DirectoryEntry
@@ -8,44 +20,38 @@ function plusReady() {
 		}, function(fileEntry) {
 			// Write data to file
 			fileEntry.createWriter(function(writer) {
+				writerForQr = writer;
 				writer.onwrite = function(e) {
-					plus.console.log("Write data success!");
+					console.log("Write data success!");
 				};
-				// Write data to the end of file.
-				writer.seek(writer.length);
-				writer.write("New data!\n");
+				writer.onerror = function(e) {
+					alert('写入错误：' + e.target.error.message);
+					console.log(JSON.stringify(e));
+				};
 			}, function(e) {
 				alert(e.message);
 			});
 
-			fileEntry.file(function(file) {
-				var fileReader = new plus.io.FileReader();
-				fileReader.readAsText(file, 'utf-8');
-				fileReader.onloadend = function(evt) {
-					console.log(JSON.stringify(evt));
-					console.log(evt.target.result);
-					var qr = evt.target.result.split('\n');
-					//					var count = 0;
-					//					for(var n in qr) {
-					//						if(qr[n]) {
-					//							count++
-					//							alert('二维码：' + qr[n]);
-					//						} else {
-					//							alert("最后一个");
-					//						}
-					//					}
-					//					alert(count);
-				}
-			});
 		});
 	}, function(e) {
 		alert("Request file system failed: " + e.message);
 	});
-
 }
 document.addEventListener("plusready", plusReady, false);
 
+// 文件追加二维码
+function appendQr(qr) {
+	writerForQr.seek(writerForQr.length);
+	writerForQr.write(qr + '\n');
+}
 
-function fileSystem() {
-	plus.webview.create('file.html', 'file').show();
+function addQrNum() {
+	qrCount++;
+	plus.storage.setItem("qrCount", qrCount + "");
+	var num = plus.storage.getItem("qrCount");
+}
+
+function clearQrNum() {
+	qrCount = 0;
+	plus.storage.setItem("qrCount", "0");
 }

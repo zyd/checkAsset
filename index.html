@@ -35,6 +35,8 @@
 					result: r,
 					file: f
 				};
+				appendQr(r);
+				addQrNum();
 				update(r, f);
 			}
 
@@ -45,7 +47,7 @@
 			}
 
 			function update(r, f) {
-				outSet('扫码计数：111');
+				outSet('扫码计数：' + qrCount);
 				outLine('扫描成功：' + r);
 				outLine('图片地址：' + f);
 				if(!f || f == 'null') {
@@ -71,12 +73,16 @@
 						plus.nativeUI.confirm('真删了啊！你可别后悔啊？', function(e1) {
 							if(e1.index == 0) {
 								if(blist.length > 0) {
+									clearQrNum();
+									blist = [];
 									var hl = document.getElementById('history');
 									hl.innerHTML = '<li id="nohistory" class="ditem" onclick="onempty();">无历史记录	</li>';
+									outSet('盘点完成，导出盘点文件，通过浏览器上传至设备管理系统完成盘点。');
 								}
 								plus.io.resolveLocalFileSystemURL('_doc/', function(entry) {
 									entry.removeRecursively(function() {
 										img.src = 'img/barcode.png';
+										plusReady();
 									}, function(e) {
 										alert("failed" + e.message);
 									});
@@ -85,6 +91,10 @@
 						});
 					}
 				});
+			}
+			// 打开文件系统
+			function fileSystem() {
+				plus.webview.create('file.html', 'file').show();
 			}
 		</script>
 		<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
@@ -121,6 +131,7 @@
 			盘点完成，导出盘点文件，通过浏览器上传至设备管理系统完成盘点。
 		</div>
 	</body>
-	
+
 	<script type="text/javascript" src="js/immersed.js"></script>
+
 </html>
