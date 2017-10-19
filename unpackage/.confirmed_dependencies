@@ -1,1 +1,20 @@
-null
+{
+	"index.html": {
+		"resources": [
+			"js/common.js",
+			"css/common.css",
+			"js/immersed.js",
+			"js/index.js",
+			"img/barcode.png"
+		],
+		"refer": [
+			"barcode_scan.html"
+		]
+	},
+	"barcode_scan.html": {
+		"resources": [
+			"js/common.js",
+			"css/common.css"
+		]
+	}
+}

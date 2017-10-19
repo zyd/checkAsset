@@ -1,4 +1,4 @@
-﻿{
+{
     "@platforms": ["android", "iPhone", "iPad"],
     "id": "H56612245",/*应用的标识，创建应用时自动生成，勿手动修改*/
     "name": "设备管理扫码",/*应用名称，程序桌面图标名称*/
@@ -195,5 +195,39 @@
                 }
             }
         }
-    }
+    },
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"js/common.js",
+					"css/common.css",
+					"js/immersed.js",
+					"js/index.js",
+					"img/barcode.png"
+				],
+				"refer": [
+					"barcode_scan.html"
+				],
+				"priority": 0
+			},
+			"barcode_scan.html": {
+				"resources": [
+					"js/common.js",
+					"css/common.css"
+				],
+				"refer": [],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"img/fup.png",
+				"img/fdisk.png",
+				"img/ffile.png",
+				"file.html",
+				"img/fdir.png"
+			]
+		}
+	}
 }
