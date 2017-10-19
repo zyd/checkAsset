@@ -8,8 +8,8 @@ function plusReady() {
 		qrCount = 0;
 	} else {
 		if(qrCount != 0) {
-			li = document.getElementById('nohistory');
-			li.innerHTML = "已盘点个数：" + qrCount;
+			var hl = document.getElementById('history');
+			hl.innerHTML = '<li id="nohistory" class="ditem">已盘点个数：'+qrCount+'</li>';
 		}
 	}
 	// 读写文件
@@ -21,9 +21,6 @@ function plusReady() {
 			// Write data to file
 			fileEntry.createWriter(function(writer) {
 				writerForQr = writer;
-				writer.onwrite = function(e) {
-					console.log("Write data success!");
-				};
 				writer.onerror = function(e) {
 					alert('写入错误：' + e.target.error.message);
 					console.log(JSON.stringify(e));
