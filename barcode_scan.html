@@ -48,8 +48,22 @@
 			// 二维码扫描成功
 			function onmarked(type, result, file) {
 				result = result.replace(/\n/g, '');
-				wo.evalJS("scaned('" + result + "','" + file + "');");
-				back();
+				var reg = /^\d{8}$/;
+				if(reg.test(result) == true) {
+					wo.evalJS("scaned('" + result + "','" + file + "');");
+					back();
+				} else {
+					plus.nativeUI.confirm('不是合法的设备二维码，是否还要继续？', function(e) {
+						if(e.index == 0) {
+							scan.start({
+								conserve: true,
+								filename: '_doc/barcode/'
+							});
+						} else {
+							back();
+						}
+					});
+				}
 			}
 			// 从相册中选择二维码图片 
 			function scanPicture() {
@@ -63,6 +77,7 @@
 			}
 			// 打开闪光灯
 			var open = false;
+
 			function openOrCloseFlash() {
 				open = !open
 				scan.setFlash(open);
