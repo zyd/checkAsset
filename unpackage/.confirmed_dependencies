@@ -1,20 +1,36 @@
 {
-	"index.html": {
-		"resources": [
-			"js/common.js",
-			"css/common.css",
-			"js/immersed.js",
-			"js/index.js",
-			"img/barcode.png"
-		],
-		"refer": [
-			"barcode_scan.html"
-		]
-	},
-	"barcode_scan.html": {
-		"resources": [
-			"js/common.js",
-			"css/common.css"
-		]
-	}
+  "index.html": {
+    "resources": [
+      "js/common.js",
+      "css/common.css",
+      "js/immersed.js",
+      "js/index.js",
+      "img/barcode.png"
+    ],
+    "refer": [
+      "barcode_scan.html",
+      "file.html"
+    ]
+  },
+  "barcode_scan.html": {
+    "resources": [
+      "js/common.js",
+      "css/common.css"
+    ],
+    "refer": []
+  },
+  "file.html": {
+    "href": "file.html",
+    "resources": [
+      "js/immersed.js",
+      "js/common.js",
+      "img/fdir.png",
+      "img/fdisk.png",
+      "img/ffile.png",
+      "css/common.css",
+      "img/fup.png"
+    ],
+    "refer": [],
+    "priority": 0
+  }
 }

@@ -197,37 +197,43 @@
         }
     },
 	"dependencies": {
-		"pages": {
-			"index.html": {
-				"resources": [
-					"js/common.js",
-					"css/common.css",
-					"js/immersed.js",
-					"js/index.js",
-					"img/barcode.png"
-				],
-				"refer": [
-					"barcode_scan.html"
-				],
-				"priority": 0
-			},
-			"barcode_scan.html": {
-				"resources": [
-					"js/common.js",
-					"css/common.css"
-				],
-				"refer": [],
-				"priority": 0
-			}
-		},
-		"idle": {
-			"resources": [
-				"img/fup.png",
-				"img/fdisk.png",
-				"img/ffile.png",
-				"file.html",
-				"img/fdir.png"
-			]
-		}
+	  "pages": {
+	    "index.html": {
+	      "resources": [
+	        "js/common.js",
+	        "css/common.css",
+	        "js/immersed.js",
+	        "js/index.js",
+	        "img/barcode.png"
+	      ],
+	      "refer": [
+	        "barcode_scan.html",
+	        "file.html"
+	      ],
+	      "priority": 0
+	    },
+	    "barcode_scan.html": {
+	      "resources": [
+	        "js/common.js",
+	        "css/common.css"
+	      ],
+	      "refer": [],
+	      "priority": 0
+	    },
+	    "file.html": {
+	      "href": "file.html",
+	      "resources": [
+	        "js/immersed.js",
+	        "js/common.js",
+	        "img/fdir.png",
+	        "img/fdisk.png",
+	        "img/ffile.png",
+	        "css/common.css",
+	        "img/fup.png"
+	      ],
+	      "priority": 0
+	    }
+	  },
+	  "idle": {}
 	}
 }
