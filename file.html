@@ -109,7 +109,7 @@
 						outLine("Read directory " + item.id + " failed: " + e.message);
 					});
 				} else {
-					outSet("Open file: \"" + dir + item.id + "\"");
+					outSet("打开文件: \"" + dir + item.id + "\"");
 					plus.runtime.openFile(dir + item.id, {}, function(e) {
 						plus.nativeUI.alert("无法打开此文件：" + e.emssage);
 					});
