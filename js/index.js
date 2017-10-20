@@ -9,7 +9,14 @@ function plusReady() {
 	} else {
 		if(qrCount != 0) {
 			var hl = document.getElementById('history');
-			hl.innerHTML = '<li id="nohistory" class="ditem">已盘点个数：'+qrCount+'</li>';
+			hl.innerHTML = '<li id="nohistory" class="ditem">已盘点个数：' + qrCount + '</li>';
+			plus.io.resolveLocalFileSystemURL('_doc/barcode/', function(entry) {
+				entry.removeRecursively(function() {
+					console.log("已删除扫描图片");
+				}, function(e) {
+					alert("failed" + e.message);
+				});
+			});
 		}
 	}
 	// 读写文件
