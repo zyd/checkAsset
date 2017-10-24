@@ -26,7 +26,12 @@
 				}
 				li.id = blist.length;
 				var dateStr = dateToStr(d);
-				var html = '[' + dateStr + ']' + '　　' + '二维码<div class="hdata">';
+				var html;
+				if (r.length < 10) {
+					html = '[' + dateStr + ']' + '　　' + '固定资产<div class="hdata">';
+				} else {
+					html = '[' + dateStr + ']' + '　　' + '低值易耗品<div class="hdata">';
+				}
 				html += r;
 				html += '</div>';
 				li.innerHTML = html;
