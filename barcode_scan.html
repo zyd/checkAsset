@@ -9,7 +9,7 @@
 		<title>扫码</title>
 		<script type="text/javascript" src="js/common.js"></script>
 		<script type="text/javascript">
-			var reg = /^\d{8}$/; // 正则表达式用来判断二维码是不是合法二维码
+			var reg = /^\d{8,11}$/; // 正则表达式用来判断二维码是不是合法二维码，8~11纯数字
 			var ws = null,
 				wo = null;
 			var scan = null,
